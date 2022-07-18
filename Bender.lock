@@ -97,8 +97,8 @@ packages:
     dependencies:
       - hci
   common_cells:
-    revision: b5ec8905ed7828655155b0ae971023adf793c600
-    version: 1.24.0
+    revision: 88a08fd4e365ec258375a326c30c20726eaa4fa2
+    version: 1.24.1
     source:
       Git: "https://github.com/pulp-platform/common_cells.git"
     dependencies:
@@ -111,7 +111,7 @@ packages:
       Git: "https://github.com/pulp-platform/common_verification.git"
     dependencies: []
   cv32e40p:
-    revision: 8d58109ab61e1fb6c9dcbafefb8f3a56ee596427
+    revision: 4c9a3ad07da429c7b9e7f325732e545a7dffecd6
     version: ~
     source:
       Git: "https://github.com/pulp-platform/cv32e40p.git"
@@ -256,10 +256,10 @@ packages:
     dependencies:
       - axi_slice
   pulp_cluster:
-    revision: 040fc3e3b2dbf11ce0d08bf7554f310c483b8c9f
+    revision: f3a64bdd7ea8fdc40373bcc7cb9b3ec4d8438fa4
     version: ~
     source:
-      Git: "https://github.com/pulp-platform/pulp_cluster.git"
+      Git: "https://github.com/jmihali/pulp_cluster_xpulptnn.git"
     dependencies:
       - axi
       - axi2mem
@@ -268,7 +268,6 @@ packages:
       - cluster_interconnect
       - cluster_peripherals
       - common_cells
-      - cv32e40p
       - event_unit_flex
       - fpu_interco
       - hci
@@ -278,14 +277,15 @@ packages:
       - icache_mp_128_pf
       - mchan
       - per2axi
+      - riscv_nn
       - scm
       - tech_cells_generic
       - timer_unit
   pulp_soc:
-    revision: d878151e0e40912642c5275d470cef76258f5fc6
-    version: 3.0.1
+    revision: bd4708bccb0070097a9f5c0215fc35bbbaef4f77
+    version: ~
     source:
-      Git: "https://github.com/pulp-platform/pulp_soc.git"
+      Git: "https://github.com/jmihali/pulp_soc_xpulptnn.git"
     dependencies:
       - adv_dbg_if
       - apb
@@ -299,7 +299,6 @@ packages:
       - axi_slice
       - cluster_interconnect
       - common_cells
-      - cv32e40p
       - fpnew
       - generic_fll
       - hwpe-mac-engine
@@ -308,6 +307,7 @@ packages:
       - l2_tcdm_hybrid_interco
       - register_interface
       - riscv-dbg
+      - riscv_nn
       - scm
       - tech_cells_generic
       - timer_unit
@@ -322,8 +322,8 @@ packages:
       - udma_sdio
       - udma_uart
   register_interface:
-    revision: 73de8e51b79f416350229b1d2420b2c527e002b8
-    version: 0.3.1
+    revision: e32e6fde632f3cd21861b2ce47045a8bacb5216f
+    version: 0.3.2
     source:
       Git: "https://github.com/pulp-platform/register_interface.git"
     dependencies:
@@ -335,6 +335,14 @@ packages:
     source:
       Git: "https://github.com/pulp-platform/riscv-dbg.git"
     dependencies: []
+  riscv_nn:
+    revision: 765c072caec47930a210b8440892a36bc0006d68
+    version: ~
+    source:
+      Git: "git@iis-git.ee.ethz.ch:georgr/riscv-tnn.git"
+    dependencies:
+      - fpnew
+      - tech_cells_generic
   scm:
     revision: e1ad7dffd9d8702430131ec8bc1a0d9ff686ece2
     version: 1.1.0
