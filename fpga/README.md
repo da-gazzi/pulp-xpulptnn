@@ -7,6 +7,16 @@ subdirectory for the various supported boards:
 * Xilinx VCU118 (untested)
 
 ## Bitstream Generation and Flashing
+
+### Vivado Versions
+Tested with Vivado 2022.1. If the board part is not found (e.g., `xilinx.com:zcu102:part0:3.3`), you may need to change the version (for older versions of Vivado, for example from `3.3` to `3.2`).
+
+The scripts assume that the `vivado` command points to the vivado binary. On IIS systems using SEPP packages, run commands as 
+```
+vitis-2022.1 make <target>
+```
+using the appropriate `vitis-<VERSION>` or `vivado-<VERSION>` command.
+
 ### Generating the Bitstream
 In order to generate the PULP bitstream for a supported target FPGA board, first fetch the required
 dependencies and generate the corresponding scripts with bender in the project root directory. To
