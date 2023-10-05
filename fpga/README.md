@@ -71,7 +71,7 @@ make build platform=fpga io=uart -j4
 ### Connecting to the FPGA Board
 To connect an ARM 20-pin JTAG header to the PULP system's JTAG interface on ZCU102/VCU118, connect the following pins:
 
-|--------|---------|-------------------------|
+
 | Signal | ARM Pin | ZCU102/VCU118 PMOD0 Pin |
 |--------|---------|-------------------------|
 | TMS    | 7       | 0                       |
@@ -79,7 +79,7 @@ To connect an ARM 20-pin JTAG header to the PULP system's JTAG interface on ZCU1
 | TDO    | 13      | 2                       |
 | TCK    | 9       | 3                       |
 | TRSTN  | 3       | 4 (not used)            |
-|--------|---------|-------------------------|
+
 
 Now you can connect to the board with OpenOCD (assuming you are using ZCU102 and have an Olimex JTAG interface):
 ```
