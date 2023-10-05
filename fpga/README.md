@@ -60,6 +60,7 @@ make build platform=fpga io=uart -j4
 ```
 ### Connecting to the FPGA Board
 To connect an ARM 20-pin JTAG header to the PULP system's JTAG interface on ZCU102/VCU118, connect the following pins:
+
 |--------|---------|-------------------------|
 | Signal | ARM Pin | ZCU102/VCU118 PMOD0 Pin |
 |--------|---------|-------------------------|
