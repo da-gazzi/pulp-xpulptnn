@@ -111,10 +111,12 @@ module cluster_domain
 
     parameter EVNT_WIDTH            = 8, //size of the event bus
 `ifdef PULP_HSA
-    parameter CLUSTER_ALIAS_BASE    = 12'h1B0
+    parameter CLUSTER_ALIAS_BASE    = 12'h1B0,
 `else
-    parameter CLUSTER_ALIAS_BASE    = 12'h000
+    parameter CLUSTER_ALIAS_BASE    = 12'h000,
 `endif
+    parameter TNN_EXTENSION         = 0,
+    parameter TNN_UNSIGNED          = 0
 )
 (
   
@@ -264,7 +266,9 @@ module cluster_domain
         .LOG_CLUSTER                  ( LOG_CLUSTER                  ),
         .PE_ROUTING_LSB               ( PE_ROUTING_LSB               ),
         .EVNT_WIDTH                   ( EVNT_WIDTH                   ),
-        .CLUSTER_ALIAS_BASE           ( CLUSTER_ALIAS_BASE           )
+        .CLUSTER_ALIAS_BASE           ( CLUSTER_ALIAS_BASE           ),
+        .TNN_EXTENSION                ( TNN_EXTENSION                ),
+        .TNN_UNSIGNED                 ( TNN_UNSIGNED                 )
     )
 `endif    
     cluster_i

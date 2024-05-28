@@ -53,13 +53,14 @@ packages:
     dependencies:
       - apb
   axi:
-    revision: 527cf64a95f7aea36836b2db76dc4d767e150358
-    version: 0.29.2
+    revision: 9402c8a9ce0a7b5253c3c29e788612d771e8b5d6
+    version: 0.39.3
     source:
       Git: "https://github.com/pulp-platform/axi.git"
     dependencies:
       - common_cells
       - common_verification
+      - tech_cells_generic
   axi2mem:
     revision: 6973e0434d26ba578cdb4aa69c26c1facd1a3f15
     version: ~
@@ -97,16 +98,16 @@ packages:
     dependencies:
       - hci
   common_cells:
-    revision: 88a08fd4e365ec258375a326c30c20726eaa4fa2
-    version: 1.24.1
+    revision: 0d67563b6b592549542544f1abc0f43e5d4ee8b4
+    version: 1.35.0
     source:
       Git: "https://github.com/pulp-platform/common_cells.git"
     dependencies:
       - common_verification
       - tech_cells_generic
   common_verification:
-    revision: b616c1a25aea3b76e32dcbed2ec87d057efdcffd
-    version: 0.2.1
+    revision: 9c07fa860593b2caabd9b5681740c25fac04b878
+    version: 0.2.3
     source:
       Git: "https://github.com/pulp-platform/common_verification.git"
     dependencies: []
@@ -115,6 +116,14 @@ packages:
     version: ~
     source:
       Git: "https://github.com/pulp-platform/cv32e40p.git"
+    dependencies:
+      - fpnew
+      - tech_cells_generic
+  cv32e40p-tnn:
+    revision: 02b95649b301e4403d0dca070cb22c0ba68e3edd
+    version: ~
+    source:
+      Git: "https://github.com/da-gazzi/cv32e40p-tnn.git"
     dependencies:
       - fpnew
       - tech_cells_generic
@@ -150,13 +159,13 @@ packages:
       - fpnew
   generic_fll:
     revision: 1c92dc73a940392182fd4cb7b86f35649b349595
-    version: ~
+    version: 0.2.0
     source:
       Git: "https://github.com/pulp-platform/generic_FLL.git"
     dependencies: []
   hci:
-    revision: 8fb848e8f6722c1c21b44533535f430960c31b0b
-    version: 1.0.8
+    revision: 2691f8e1e6c77558f581a25aeb8849e21517bb1c
+    version: 1.0.9
     source:
       Git: "https://github.com/pulp-platform/hci.git"
     dependencies:
@@ -256,10 +265,10 @@ packages:
     dependencies:
       - axi_slice
   pulp_cluster:
-    revision: f3a64bdd7ea8fdc40373bcc7cb9b3ec4d8438fa4
+    revision: c3f2875291498699b7930640afc5d8064fdf40fb
     version: ~
     source:
-      Git: "https://github.com/jmihali/pulp_cluster_xpulptnn.git"
+      Git: "https://github.com/da-gazzi/pulp_cluster_xpulptnn.git"
     dependencies:
       - axi
       - axi2mem
@@ -268,6 +277,7 @@ packages:
       - cluster_interconnect
       - cluster_peripherals
       - common_cells
+      - cv32e40p-tnn
       - event_unit_flex
       - fpu_interco
       - hci
@@ -277,15 +287,14 @@ packages:
       - icache_mp_128_pf
       - mchan
       - per2axi
-      - riscv_nn
       - scm
       - tech_cells_generic
       - timer_unit
   pulp_soc:
-    revision: bd4708bccb0070097a9f5c0215fc35bbbaef4f77
+    revision: 94d01c5010b7e5421b07417affe7dc97d2bc7821
     version: ~
     source:
-      Git: "https://github.com/jmihali/pulp_soc_xpulptnn.git"
+      Git: "https://github.com/da-gazzi/pulp_soc_xpulptnn.git"
     dependencies:
       - adv_dbg_if
       - apb
@@ -299,6 +308,7 @@ packages:
       - axi_slice
       - cluster_interconnect
       - common_cells
+      - cv32e40p-tnn
       - fpnew
       - generic_fll
       - hwpe-mac-engine
@@ -307,7 +317,6 @@ packages:
       - l2_tcdm_hybrid_interco
       - register_interface
       - riscv-dbg
-      - riscv_nn
       - scm
       - tech_cells_generic
       - timer_unit
@@ -322,11 +331,12 @@ packages:
       - udma_sdio
       - udma_uart
   register_interface:
-    revision: e32e6fde632f3cd21861b2ce47045a8bacb5216f
-    version: 0.3.2
+    revision: 146501d80052b61475cdc333d3aab4cd769fd5dc
+    version: 0.3.9
     source:
       Git: "https://github.com/pulp-platform/register_interface.git"
     dependencies:
+      - apb
       - axi
       - common_cells
   riscv-dbg:
@@ -335,17 +345,9 @@ packages:
     source:
       Git: "https://github.com/pulp-platform/riscv-dbg.git"
     dependencies: []
-  riscv_nn:
-    revision: 765c072caec47930a210b8440892a36bc0006d68
-    version: ~
-    source:
-      Git: "git@iis-git.ee.ethz.ch:georgr/riscv-tnn.git"
-    dependencies:
-      - fpnew
-      - tech_cells_generic
   scm:
-    revision: e1ad7dffd9d8702430131ec8bc1a0d9ff686ece2
-    version: 1.1.0
+    revision: 998466d2a3c2d7d572e43d2666d93c4f767d8d60
+    version: 1.1.1
     source:
       Git: "https://github.com/pulp-platform/scm.git"
     dependencies: []
@@ -356,15 +358,15 @@ packages:
       Git: "https://github.com/pulp-platform/tbtools.git"
     dependencies: []
   tech_cells_generic:
-    revision: e6226a6f374eb88fed84d4989bb3f066cb470f33
-    version: 0.2.9
+    revision: 7968dd6e6180df2c644636bc6d2908a49f2190cf
+    version: 0.2.13
     source:
       Git: "https://github.com/pulp-platform/tech_cells_generic.git"
     dependencies:
       - common_verification
   timer_unit:
-    revision: 3f4ee3e5b3875a473242de5d0c3ebb5a0fe4b8db
-    version: 1.0.2
+    revision: 4c69615c89db9397a9747d6f6d6a36727854f0bc
+    version: 1.0.3
     source:
       Git: "https://github.com/pulp-platform/timer_unit.git"
     dependencies: []

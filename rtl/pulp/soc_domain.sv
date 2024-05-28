@@ -36,6 +36,9 @@ module soc_domain #(
     parameter S2C_R_WIDTH          = 1,
     parameter LOG_DEPTH            = 3,
 
+    parameter TNN_EXTENSION        = 1,
+    parameter TNN_UNSIGNED         = 0,
+
     parameter BUFFER_WIDTH         = 8,
     parameter EVNT_WIDTH           = 8,
 
@@ -226,7 +229,9 @@ module soc_domain #(
         .NBIT_PADMUX             ( 2                  ),
         .N_UART                  ( N_UART             ),
         .N_SPI                   ( N_SPI              ),
-        .N_I2C                   ( N_I2C              )
+        .N_I2C                   ( N_I2C              ),
+        .TNN_EXTENSION           ( TNN_EXTENSION      ),
+        .TNN_UNSIGNED            ( TNN_UNSIGNED       )
    ) pulp_soc_i (
 
         .boot_l2_i                    ( 1'b0                         ),

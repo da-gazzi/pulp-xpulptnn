@@ -13,11 +13,13 @@
 
 module pulp
 #(
-  parameter CORE_TYPE_FC = 0, // 0 for RISCY, 1 for IBEX RV32IMC (formerly ZERORISCY), 2 for IBEX RV32EC (formerly MICRORISCY)
-  parameter CORE_TYPE_CL = 0, // 0 for RISCY, 1 for IBEX RV32IMC (formerly ZERORISCY), 2 for IBEX RV32EC (formerly MICRORISCY)
-  parameter USE_FPU      = 1,
-  parameter USE_HWPE     = 1,
-  parameter USE_HWPE_CL  = 1
+  parameter CORE_TYPE_FC  = 0, // 0 for RISCY, 1 for IBEX RV32IMC (formerly ZERORISCY), 2 for IBEX RV32EC (formerly MICRORISCY)
+  parameter CORE_TYPE_CL  = 0, // 0 for RISCY, 1 for IBEX RV32IMC (formerly ZERORISCY), 2 for IBEX RV32EC (formerly MICRORISCY)
+  parameter USE_FPU       = 1,
+  parameter USE_HWPE      = 1,
+  parameter USE_HWPE_CL   = 1,
+  parameter TNN_EXTENSION = 1,
+  parameter TNN_UNSIGNED  = 0
 )
 (
 
@@ -996,7 +998,9 @@ module pulp
       .NB_CL_CORES        ( `NB_CORES                  ),
       .N_UART             ( N_UART                     ),
       .N_SPI              ( N_SPI                      ),
-      .N_I2C              ( N_I2C                      )
+      .N_I2C              ( N_I2C                      ),
+      .TNN_EXTENSION      ( TNN_EXTENSION              ),
+      .TNN_UNSIGNED       ( TNN_UNSIGNED               )
    ) soc_domain_i (
 
         .ref_clk_i                    ( s_ref_clk                        ),
@@ -1180,6 +1184,8 @@ cluster_domain#(
         .CLUST_FP_DIVSQRT    (`CLUST_FP_DIVSQRT),
         .CLUST_SHARED_FP     (`CLUST_SHARED_FP),
         .CLUST_SHARED_FP_DIVSQRT(`CLUST_SHARED_FP_DIVSQRT),
+        .TNN_EXTENSION       (TNN_EXTENSION),
+        .TNN_UNSIGNED        (TNN_UNSIGNED),
 
   // AXI ADDR WIDTH
         .AXI_ADDR_WIDTH      (AXI_ADDR_WIDTH),

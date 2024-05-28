@@ -90,6 +90,14 @@ module tb_pulp;
    // In case any values are not given, the debug module takes over the boot process.
    parameter  STIM_FROM = "JTAG"; // can be "JTAG" "SPI_FLASH", "HYPER_FLASH", or ""
 
+   // georgr HACK to "easily" enable compatibility with pulp-sdk: only the SDK
+   // passes the "HYPER_FLASH_LOAD_MEM" parameter, so we use it to control
+   // whether the hyperflash is initialized with the 'slm_files/flash_stim.slm'
+   // file. STIM_FROM is not used by the SDK so there should be no collisions.
+
+   parameter int HYPER_FLASH_LOAD_MEM = 0;
+
+
    // enable DPI-based JTAG
    parameter  ENABLE_DPI = 0;
 
@@ -113,6 +121,10 @@ module tb_pulp;
 
    // use frequency-locked loop to generate internal clock
    parameter  USE_FLL = 1;
+
+   // enable TNN Extension without support for unsigned values
+   parameter  TNN_EXTENSION = 1;
+   parameter  TNN_UNSIGNED = 0; 
 
    // use camera verification IP
    parameter  USE_SDVT_CPI = 0;
@@ -473,9 +485,10 @@ module tb_pulp;
                .CKNeg    ( w_hyper_ckn    ),
                .RESETNeg ( w_hyper_reset  )
             );
-         end else begin
+         end else if (HYPER_FLASH_LOAD_MEM == 1) begin
             s26ks512s #(
-               .TimingModel   ( "S26KS512SDPBHI000")
+                        .TimingModel   ( "S26KS512SDPBHI000"),
+                        .mem_file_name ( "./slm_files/hyperflash_stim.slm" )
             ) hyperflash_model (
                .DQ7      ( w_hyper_dq0[7] ),
                .DQ6      ( w_hyper_dq0[6] ),
@@ -490,7 +503,25 @@ module tb_pulp;
                .CK       ( w_hyper_ck     ),
                .CKNeg    ( w_hyper_ckn    ),
                .RESETNeg ( w_hyper_reset  )
-            );
+              );
+         end else begin
+            s26ks512s #(
+                        .TimingModel   ( "S26KS512SDPBHI000")
+                        ) hyperflash_model (
+                                            .DQ7      ( w_hyper_dq0[7] ),
+                                            .DQ6      ( w_hyper_dq0[6] ),
+                                            .DQ5      ( w_hyper_dq0[5] ),
+                                            .DQ4      ( w_hyper_dq0[4] ),
+                                            .DQ3      ( w_hyper_dq0[3] ),
+                                            .DQ2      ( w_hyper_dq0[2] ),
+                                            .DQ1      ( w_hyper_dq0[1] ),
+                                            .DQ0      ( w_hyper_dq0[0] ),
+                                            .RWDS     ( w_hyper_rwds0  ),
+                                            .CSNeg    ( w_hyper_csn0   ),
+                                            .CK       ( w_hyper_ck     ),
+                                            .CKNeg    ( w_hyper_ckn    ),
+                                            .RESETNeg ( w_hyper_reset  )
+                                            );
 
          end
       end
@@ -694,7 +725,9 @@ module tb_pulp;
       .CORE_TYPE_CL ( CORE_TYPE_CL ),
       .USE_FPU      ( RISCY_FPU    ),
       .USE_HWPE     ( USE_HWPE     ),
-      .USE_HWPE_CL  ( USE_HWPE_CL  )
+      .USE_HWPE_CL  ( USE_HWPE_CL  ),
+      .TNN_EXTENSION( TNN_EXTENSION),
+      .TNN_UNSIGNED ( TNN_UNSIGNED )
    )
    i_dut (
       .pad_spim_sdio0     ( w_spi_master_sdio0 ),
